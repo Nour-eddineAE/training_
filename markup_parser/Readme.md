@@ -8,11 +8,11 @@ This challenge works with a custom-designed markup language HRML. In HRML, each 
 
 The opening tags follow the format:
 
-- <tag-name attribute1-name = "value1" attribute2-name = "value2" ...>
+- < tag-name attribute1-name = "value1" attribute2-name = "value2" ...>
 
 The closing tags follow the format:
 
-- </tag-name>
+- < /tag-name>
 
 The attributes are referenced as:
 
@@ -24,25 +24,25 @@ Given the source code in HRML format consisting of lines, answer queries. For ea
 
 ### HRML listing
 
-- <tag1 value = "value">
-- <tag2 name = "name">
-- <tag3 another="another" final="final">
-- </tag3>
-- </tag2>
-- </tag1>
+- < tag1 value = "value">
+- < tag2 name = "name">
+- < tag3 another="another" final="final">
+- < /tag3>
+- < /tag2>
+- < /tag1>
 
 ### Queries
 
-tag1~value
-tag1.tag2.tag3~name
-tag1.tag2~value
+- tag1~value
+- tag1.tag2.tag3~name
+- tag1.tag2~value
 Here, tag2 is nested within tag1, so attributes of tag2 are accessed as tag1.tag2~<attribute>. Results of the queries are:
 
 ### Query Value
 
-tag1~value "value"
-tag1.tag2.tag3~name "Not Found!"
-tag1.tag2.tag3~final "final"
+- tag1~value "value"
+- tag1.tag2.tag3~name "Not Found!"
+- tag1.tag2.tag3~final "final"
 
 ### Input Format
 
@@ -63,12 +63,13 @@ Output Format
 Print the value of the attribute for each query. Print "Not Found!" without quotes if the attribute does not exist.
 
 #### Sample Input
+##### remove spaces beore tags delimiters
 
-4 3
-- <tag1 value = "HelloWorld">
-- <tag2 name = "Name1">
-- </tag2>
-- </tag1>
+- 4 3
+- < tag1 value = "HelloWorld">
+- < tag2 name = "Name1">
+- < /tag2>
+- < /tag1>
 - tag1.tag2~name
 - tag1~name
 - tag1~value
