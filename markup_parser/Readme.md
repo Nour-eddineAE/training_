@@ -8,11 +8,11 @@ This challenge works with a custom-designed markup language HRML. In HRML, each 
 
 The opening tags follow the format:
 
-<tag-name attribute1-name = "value1" attribute2-name = "value2" ...>
+- <tag-name attribute1-name = "value1" attribute2-name = "value2" ...>
 
 The closing tags follow the format:
 
-</tag-name>
+- </tag-name>
 
 The attributes are referenced as:
 
@@ -24,12 +24,12 @@ Given the source code in HRML format consisting of lines, answer queries. For ea
 
 ### HRML listing
 
-<tag1 value = "value">
-<tag2 name = "name">
-<tag3 another="another" final="final">
-</tag3>
-</tag2>
-</tag1>
+- <tag1 value = "value">
+- <tag2 name = "name">
+- <tag3 another="another" final="final">
+- </tag3>
+- </tag2>
+- </tag1>
 
 ### Queries
 
@@ -65,16 +65,16 @@ Print the value of the attribute for each query. Print "Not Found!" without quot
 #### Sample Input
 
 4 3
-<tag1 value = "HelloWorld">
-<tag2 name = "Name1">
-</tag2>
-</tag1>
-tag1.tag2~name
-tag1~name
-tag1~value
+- <tag1 value = "HelloWorld">
+- <tag2 name = "Name1">
+- </tag2>
+- </tag1>
+- tag1.tag2~name
+- tag1~name
+- tag1~value
 
 #### Sample Output
 
-Name1
-Not Found!
-HelloWorld
+- Name1
+- Not Found!
+- HelloWorld
