@@ -11,43 +11,30 @@ struct Tag
   vector<Tag> children;
 };
 
-// Parse a single tag from the given input stream
 Tag parseTag(istringstream &stream, string line_)
 {
   Tag tag;
   string current_line = line_;
 
-  // ? Parse tag name
-  // 1) get index of the first element != <
+  // Parse tag name
   size_t start = current_line.find_first_not_of(" \t\n\r<");
-
-  // 2) get index of last element before: ' ', starting from: start
   size_t end = current_line.find(' ', start);
   if (end == string::npos)
   {
-    // * If no attributes are present, the tag name extends to the end of the line
     end = current_line.find('>', start);
   }
-
-  // 3) tag name will be the string between these 2 positions
   tag.name = current_line.substr(start, end - start);
 
-  // * if it's a closing tag then return immediately
+  // Check if it's a closing tag
   if (current_line.find("</" + tag.name + ">") != string::npos)
   {
     return tag;
   }
 
-  // ? Parse tag attributes
-
-  // 1) find the position of the first = operator starting from position: end
+  // Parse tag attributes
   size_t pos = current_line.find('=', end);
-
-  // * while we have equal operators
   while (pos != string::npos)
   {
-    // 2) find the last occurence of the given character when we search backaward starting
-    //  from the given position, in other words: the position of the first space after the attribute
     size_t attrEnd = 0;
     for (int i = pos - 1; i > 0; i--)
     {
@@ -58,7 +45,6 @@ Tag parseTag(istringstream &stream, string line_)
       }
     }
     size_t attrStart = current_line.rfind(' ', attrEnd) + 1;
-    // * +1 in substr to count the last element if we do a substraction
     string attribute = current_line.substr(attrStart, attrEnd - attrStart + 1);
 
     size_t valueStart = current_line.find('\"', pos) + 1;
@@ -69,14 +55,18 @@ Tag parseTag(istringstream &stream, string line_)
     pos = current_line.find('=', valueEnd);
   }
 
-  // ? Parse tag children recursively
-
+  // Parse tag children recursively
   string closingTag = "</" + tag.name + ">";
-
-  while (getline(stream, current_line))
+  string childLine;
+  while (getline(stream, childLine))
   {
-    tag.children.push_back(parseTag(stream, current_line));
+    if (childLine.find(closingTag) != string::npos)
+    {
+      break;
+    }
+    tag.children.push_back(parseTag(stream, childLine));
   }
+
   return tag;
 }
 

@@ -2,10 +2,6 @@
 #include <deque>
 using namespace std;
 
-#include <iostream>
-#include <deque>
-using namespace std;
-
 void printKMax(int arr[], int n, int k)
 {
   deque<pair<int, int>> dq;
