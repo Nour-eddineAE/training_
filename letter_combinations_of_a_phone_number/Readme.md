@@ -15,8 +15,9 @@ Strings associated to each digit(from 2 to 9), like on the telephone buttons.
   {9, "wxyz"},
 }
 
-![Alt text](1200px-telephone-keypad2svg.png)
 </pre>
+
+![Alt text](1200px-telephone-keypad2svg.png)
 
 # Example
 
