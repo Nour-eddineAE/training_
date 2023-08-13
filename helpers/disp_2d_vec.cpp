@@ -3,7 +3,7 @@
 using namespace std;
 
 /**
- * Print a vector of vectors of strings
+ * Print a 2D vector of strings
  * @param {vector<vector<string>> vec}
  * @return Returns nothing
  */
