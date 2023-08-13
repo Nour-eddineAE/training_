@@ -14,9 +14,3 @@ void disp(vector<string> vec)
     cout << str << endl;
   }
 }
-
-int main(int argc, char const *argv[])
-{
-  /* code */
-  return 0;
-}
