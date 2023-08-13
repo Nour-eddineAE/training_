@@ -35,6 +35,7 @@ public:
         return it->second;
       }
     }
+
     return "";
   }
 
@@ -66,13 +67,14 @@ public:
     if (map.empty())
       return "";
 
-    // if target timestamp less than the first saved timestamp
     auto start = map.begin();
+    auto end = prev(map.end());
+
+    // if target timestamp is less than the first saved timestamp
     if (timestamp < start->first)
       return "";
 
-    // if target timestamp greater than the last saved timestamp
-    auto end = prev(map.end());
+    // if target timestamp is greater than the last saved timestamp
     if (timestamp >= end->first)
       return end->second;
 
@@ -97,6 +99,7 @@ public:
 
     if (start->first > timestamp)
       --start;
+
     return start->second;
   }
 
