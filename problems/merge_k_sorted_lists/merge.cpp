@@ -51,7 +51,7 @@ public:
     }
   }
 
-  // ?Using heaps
+  // ?Using heaps make_heap and sort_heap
   ListNode *mergeKLists(vector<ListNode *> &lists)
   {
     if (lists.empty())
@@ -73,8 +73,39 @@ public:
 
     return res;
   }
-};
 
+  // ? Using priority-queue class
+  ListNode *_mergeKLists(vector<ListNode *> &lists)
+  {
+    priority_queue<int, vector<int>, greater<int>> min_heap;
+    for (auto list : lists)
+    {
+      while (list)
+      {
+        min_heap.push(list->val);
+        list = list->next;
+      }
+    }
+
+    if (min_heap.empty())
+    {
+      return nullptr;
+    }
+
+    ListNode *res = new ListNode(min_heap.top());
+    min_heap.pop();
+    ListNode *current = res;
+
+    while (!min_heap.empty())
+    {
+      current->next = new ListNode(min_heap.top());
+      current = current->next;
+      min_heap.pop();
+    }
+
+    return res;
+  }
+};
 int main(int argc, char const *argv[])
 {
   Solution sol;
@@ -92,6 +123,7 @@ int main(int argc, char const *argv[])
 
   vector<ListNode *> nodes = {node1, node2, node3};
   sol.disp(sol.mergeKLists(nodes));
-
+  sol.disp(sol._mergeKLists(nodes));
+  // both should print: 0 -> 1 -> 1 -> 2 -> 3 -> 4 -> 4 -> 5 -> 11
   return 0;
 }
