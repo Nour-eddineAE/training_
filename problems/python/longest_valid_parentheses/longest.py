@@ -12,7 +12,6 @@ class Solution:
                 if stack:
                     res[stack.pop()] = 1
                     res[i] = 1
-        print(res)
         longest = 0
         temp = 0
         for val in res:
@@ -24,6 +23,24 @@ class Solution:
 
         return max(temp, longest)
 
+    # Using one stack => less processing, les memory use
+    def longestValidParentheses_(self, s: str) -> int:
+        s = s[s.find('('): s.rfind(')') + 1]
+
+        stack = [-1]
+        res = 0
+        for i, char in enumerate(s):
+            if char == "(":
+                stack.append(i)
+            else:
+                stack.pop()
+                if stack:
+                    res = max(res, i - stack[-1])
+                else:
+                    stack.append(i)
+        return res
+
 
 st = "(()(()(()))()()"
 print(Solution().longestValidParentheses(st))  # 14
+print(Solution().longestValidParentheses_(st))  # 14
