@@ -9,30 +9,23 @@ class TreeNode:
 
 
 class Solution:
-    def helper(self, root: TreeNode, largest):
+    def good_node(self, root, largest):
         if not root:
             return 0
 
-        good = 0
-        if root.left:
-            if root.left.val >= largest:
-                good += 1 + self.helper(root.left, root.left.val)
-            else:
-                good += self.helper(root.left, largest)
+        largest = max(largest, root.val)
 
-        if root.right:
-            if root.right.val >= largest:
-                good += 1 + self.helper(root.right, root.right.val)
-            else:
-                good += self.helper(root.right, largest)
-        return good
+        if root.val >= largest:
+            return 1 + self.good_node(root.left, largest) + self.good_node(root.right, largest)
 
-    def goodNodes(self, root: TreeNode) -> int:
+        return self.good_node(root.left, largest) + self.good_node(root.right, largest)
+
+    def goodNodes(self, root):
         """
           * A node is considered 'good' if there are no nodes with values greater than its value
           * anywhere on the path from the root to that node.
         """
-        return 1 + self.helper(root, root.val)
+        return self.good_node(root, float('-inf'))
 
 
 node6 = TreeNode(5)
