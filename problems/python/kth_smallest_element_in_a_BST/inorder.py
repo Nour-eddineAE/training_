@@ -6,9 +6,23 @@ class TreeNode:
         self.val = val
         self.left: TreeNode = left
         self.right: TreeNode = right
+        self.lCount = 0
 
 
 class Solution:
+    def insert(self, root, x):
+        if (root == None):
+            return TreeNode(x)
+
+        if (x < root.val):
+            root.left = self.insert(root.left, x)
+            root.lCount += 1
+
+        elif (x > root.val):
+            root.right = self.insert(root.right, x)
+
+        return root
+
     def inorder(self, root: TreeNode, res: List[int]) -> None:
         if not root:
             return
@@ -45,12 +59,12 @@ class Solution:
         return res[k-1]
 
 
-node6 = TreeNode(1)
-node5 = TreeNode(4)
-node4 = TreeNode(2, node6)
-node3 = TreeNode(6)
-node2 = TreeNode(3, node4, node5)
-root = TreeNode(5, node2, node3)
+sol = Solution()
+root = None
+keys = [20, 8, 22, 4, 12, 10, 14]
+
+for x in keys:
+    root = sol.insert(root, x)
 
 
-print(Solution().kthSmallest(root, 1))  # 1
+print(sol.kthSmallest(root, 1))  # 1
