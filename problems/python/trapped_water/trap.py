@@ -33,27 +33,30 @@ class Solution:
 
 
 class Solution:
-    # optimized: O(1)space
     def trap(self, height: List[int]) -> int:
+        """
+        ? 1- The trick lies in the fact that if we have a larger boundary to the right than to the left, 
+            the maximum number of water units we can form is determined by the minimum among right and left boundaries,
+            we just need -for each index in the array- to substract the height of the boundary itself
+        ? 2- Same thing applies when the left boundary is larger than the right one
+        ? 3- If they are equal, then whatever pointer we move will be valid
+        """
         left, right = 0, len(height) - 1
-        left_max, right_max = 0, 0
-        trapped_water = 0
+        left_max, right_max = height[left], height[right]
 
+        count = 0
         while left < right:
-            if height[left] < height[right]:
-                if height[left] > left_max:
-                    left_max = height[left]
-                else:
-                    trapped_water += left_max - height[left]
+            if left_max < right_max:
                 left += 1
+                left_max = max(left_max, height[left])
+                # if current height is larger, we increment by 0, otherwise we increment by left_max - the current height
+                count += left_max - height[left]
             else:
-                if height[right] > right_max:
-                    right_max = height[right]
-                else:
-                    trapped_water += right_max - height[right]
                 right -= 1
-
-        return trapped_water
+                right_max = max(right_max, height[right])
+                # if current height is larger, we increment by 0, otherwise we increment by right_max - the current height
+                count += right_max - height[right]
+        return count
 
 
 arr = [100000, 0, 99999, 0, 99998, 0, 99997, 0, 99996, 0, 99995, 0, 99994, 0, 99993, 0, 99992, 0, 99991, 0, 99990, 0, 99989, 0, 99988, 0, 99987,
